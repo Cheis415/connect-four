@@ -9,8 +9,6 @@
 const WIDTH = 7;
 const HEIGHT = 6;
 
-let bob;
-
 let currPlayer = [1,2]; // active player: 1 or 2
 let board = []; // array of rows, each row is array of cells  (board[y][x])
 
@@ -28,58 +26,59 @@ const makeBoard = () => {
   }
    return board;
 }
-makeBoard();
+
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 const makeHtmlBoard = () => {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
 
   // TODO: add comment for this code
-  var top = document.createElement("tr");
-  top.setAttribute("id", "column-top");
-  top.addEventListener("click", handleClick);
+  let htmlBoard = document.getElementById("board");
+  let top = document.createElement("tr");         //creates the special top row
+  top.setAttribute("id", "column-top");           //give it a unique id
+  top.addEventListener("click", handleClick);     //makes it clickable
 
-  for (let x = 0; x < WIDTH; x++) {
-    let headCell = document.createElement("td");
-    headCell.setAttribute("id", x);
-    top.append(headCell);
+  for (let x = 0; x < WIDTH; x++) {               //loop thru width
+    let headCell = document.createElement("td");  //make a table cell
+    headCell.setAttribute("id", x);               //give it a unique id based on the x;
+    top.append(headCell);                         //appending the new table cell to our special top row
   }
-  // htmlBoard.append(top);
+  htmlBoard.append(top);
 
   // TODO: add comment for this code
-  for (let y = 0; y < HEIGHT; y++) {
-    const row = document.createElement("tr");
-    for (let x = 0; x < WIDTH; x++) {
-      const cell = document.createElement("td");
-      cell.setAttribute("id", `${y}-${x}`);
-      row.append(cell);
+  for (let y = 0; y < HEIGHT; y++) {              //loop thru height;   
+    const row = document.createElement("tr");     //make a new row at each loopy
+    for (let x = 0; x < WIDTH; x++) {             //loop thru width
+      const cell = document.createElement("td");  //make a new cell at each loopy
+      cell.setAttribute("id", `${y}-${x}`);       //give the cell a unique id based on x-y
+      row.append(cell);                           //append the new cell to the row being looped thru
     }
-    // htmlBoard.append(row);
+    htmlBoard.append(row);                        //add a new row to the board on each loopy;
   }
 }
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
-function findSpotForCol(x) {
+const findSpotForCol = x => {
   // TODO: write the real version of this, rather than always returning 0
   return 0;
-}
+};
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
-function placeInTable(y, x) {
+const placeInTable = (y, x) => {
   // TODO: make a div and insert into correct table cell
-}
+};
 
 /** endGame: announce game end */
 
-function endGame(msg) {
+const endGame = msg => {
   // TODO: pop up alert message
-}
+};
 
 /** handleClick: handle click of column top to play piece */
 
-function handleClick(evt) {
+const handleClick = (evt) => {
   // get x from ID of clicked cell
   let x = +evt.target.id;
 
@@ -107,8 +106,8 @@ function handleClick(evt) {
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 
-function checkForWin() {
-  function _win(cells) {
+const checkForWin = () => {
+  const _win = cells => {
     // Check four cells to see if they're all color of current player
     //  - cells: list of four (y, x) cells
     //  - returns true if all are legal coordinates & all match currPlayer
