@@ -87,13 +87,17 @@ function placeInTable(y, x) {
 /** endGame: announce game end */
 
 function endGame(msg) {
-  // TODO: pop up alert message
+  alert(msg);
 }
 
 /** handleClick: handle click of column top to play piece */
-
+let counter = 0;
 function handleClick(evt) {
-  // get x from ID of clicked cell
+  counter++
+  
+  if (counter >= WIDTH * HEIGHT) {
+    endGame("Tie game!")
+  }
   let x = +evt.target.id;
 
   // get next spot in column (if none, ignore click)
@@ -108,11 +112,12 @@ function handleClick(evt) {
 
   // check for win
   if (checkForWin()) {
-    return endGame(`Player ${currPlayer} won!`);
+    return endGame(`Player ${currPlayer} won, but is still a bitch, but better than Player ${currPlayer - 1 || 2}!`);
   }
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
+  
 
   // switch players
   currPlayer === 1 ? currPlayer = 2 : currPlayer = 1;
@@ -150,6 +155,7 @@ function checkForWin() {
         }
       }
     }
+
 }
 
 makeBoard();
