@@ -9,7 +9,7 @@
 const WIDTH = 7;
 const HEIGHT = 6;
 
-let currPlayer = [1,2]; // active player: 1 or 2
+let currPlayer = 1; // active player: 1 or 2
 let board = []; // array of rows, each row is array of cells  (board[y][x])
 
 /** makeBoard: create in-JS board structure:
@@ -59,19 +59,29 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  let firstEmptyPlace = HEIGHT - 1;
+
+  for (y = HEIGHT - 1; y > 0; y--){
+    if (board[y][x] !== null) {
+      firstEmptyPlace = y - 1;
+    }
+  }
+  
+  console.log("fep = ", firstEmptyPlace)
+  return firstEmptyPlace;
+  // return HEIGHT - 1;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
   let puck = document.createElement("div");
-  puck.classList.add('piece', 'p1', 'p2');
+  puck.classList.add('piece', `p${currPlayer}`); 
   let square = document.getElementById(`${y}-${x}`);
-  if (board[x][y] === null) {
+  if (board[y][x] === null) {
     square.append(puck)
-  } 
+    board[y][x] = currPlayer;
+  }
 }
 
 /** endGame: announce game end */
@@ -105,7 +115,7 @@ function handleClick(evt) {
   // TODO: check if all cells in board are filled; if so call, call endGame
 
   // switch players
-  // TODO: switch currPlayer 1 <-> 2
+  currPlayer === 1 ? currPlayer = 2 : currPlayer = 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
