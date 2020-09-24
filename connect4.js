@@ -9,6 +9,8 @@
 const WIDTH = 7;
 const HEIGHT = 6;
 
+let bob;
+
 let currPlayer = [1,2]; // active player: 1 or 2
 let board = []; // array of rows, each row is array of cells  (board[y][x])
 
