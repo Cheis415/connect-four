@@ -16,7 +16,7 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
  *    board = array of rows, each row is array of cells  (board[y][x])
  */
 
-const makeBoard = () => {
+function makeBoard() {
   for (let i = 0; i < HEIGHT; i++) {
     let row = [];
     for (let j = 0; j < WIDTH; j++) {
@@ -24,12 +24,11 @@ const makeBoard = () => {
     }
     board.push(row);
   }
-   return board;
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
-const makeHtmlBoard = () => {
+function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
 
   // TODO: add comment for this code
@@ -59,26 +58,26 @@ const makeHtmlBoard = () => {
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
-const findSpotForCol = x => {
+function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
   return 0;
-};
+}
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
-const placeInTable = (y, x) => {
+function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
-};
+}
 
 /** endGame: announce game end */
 
-const endGame = msg => {
+function endGame(msg) {
   // TODO: pop up alert message
-};
+}
 
 /** handleClick: handle click of column top to play piece */
 
-const handleClick = (evt) => {
+function handleClick(evt) {
   // get x from ID of clicked cell
   let x = +evt.target.id;
 
@@ -106,36 +105,36 @@ const handleClick = (evt) => {
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 
-const checkForWin = () => {
-  const _win = cells => {
-    // Check four cells to see if they're all color of current player
-    //  - cells: list of four (y, x) cells
-    //  - returns true if all are legal coordinates & all match currPlayer
+function checkForWin() {
+    function _win(cells) {
+      // Check four cells to see if they're all color of current player
+      //  - cells: list of four (y, x) cells
+      //  - returns true if all are legal coordinates & all match currPlayer
 
-    return cells.every(
-      ([y, x]) =>
-        y >= 0 &&
-        y < HEIGHT &&
-        x >= 0 &&
-        x < WIDTH &&
-        board[y][x] === currPlayer
-    );
-  }
+      return cells.every(
+        ([y, x]) =>
+          y >= 0 &&
+          y < HEIGHT &&
+          x >= 0 &&
+          x < WIDTH &&
+          board[y][x] === currPlayer
+      );
+    }
 
-  // TODO: read and understand this code. Add comments to help you.
+    // TODO: read and understand this code. Add comments to help you.
 
-  for (let y = 0; y < HEIGHT; y++) {
-    for (let x = 0; x < WIDTH; x++) {
-      let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
-      let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
-      let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
-      let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
+    for (let y = 0; y < HEIGHT; y++) {
+      for (let x = 0; x < WIDTH; x++) {
+        let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
+        let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
+        let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
+        let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
 
-      if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
-        return true;
+        if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
+          return true;
+        }
       }
     }
-  }
 }
 
 makeBoard();
