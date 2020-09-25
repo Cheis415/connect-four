@@ -1,10 +1,12 @@
 /* game board table */
-#game {
-  align-items: center;
+#board {
+  padding-top: 100px;
+  margin: 0 auto;
 
 }
+
 #board td {
-  
+  background-color: skyblue;
   width: 50px;
   height: 50px;
   border: solid 1px #666;
@@ -24,12 +26,17 @@
 /* column-top is table row of clickable areas for each column */
 
 #column-top td {
-  border: dashed 1px lightgray;
+  background-color: palegoldenrod;
+  border: solid grey;
+  border-width: 0 5px 5px 0;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
 }
 
 #column-top td:hover {
-  background-color: gold;
+  background-color: salmon;
 }
+
 .p1 {
   margin: 0 auto;
   align-self: center;

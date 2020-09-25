@@ -36,6 +36,8 @@ function makeHtmlBoard() {
   let top = document.createElement("tr");         //creates the special top row
   top.setAttribute("id", "column-top");           //give it a unique id
   top.addEventListener("click", handleClick);     //makes it clickable
+  top.addEventListener("mouseover", handleHover)
+  top.addEventListener("mouseout", handleOut)
 
   for (let x = 0; x < WIDTH; x++) {               //loop thru width
     let headCell = document.createElement("td");  //make a table cell
@@ -58,6 +60,18 @@ function makeHtmlBoard() {
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
+function handleHover(evt) {
+  if (currPlayer === 1) {
+    evt.target.style.backgroundColor = "salmon";
+  } else {
+    evt.target.style.backgroundColor = "teal";
+  }
+}
+
+function handleOut(evt) {
+  evt.target.style.backgroundColor = "palegoldenrod";
+}
+
 function findSpotForCol(x) {
   let firstEmptyPlace = HEIGHT - 1;
 
@@ -66,10 +80,13 @@ function findSpotForCol(x) {
       firstEmptyPlace = y - 1;
     }
   }
+
+  if (firstEmptyPlace === -1) {
+    let fullCol = document.getElementById(x);
+    fullCol.removeEventListener(handleClick);
+  }
   
-  console.log("fep = ", firstEmptyPlace)
   return firstEmptyPlace;
-  // return HEIGHT - 1;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -87,11 +104,12 @@ function placeInTable(y, x) {
 /** endGame: announce game end */
 
 function endGame(msg) {
-  alert(msg);
+  setTimeout(function () {alert(msg)}, 250);
 }
 
 /** handleClick: handle click of column top to play piece */
 let counter = 0;
+
 function handleClick(evt) {
   counter++
   
